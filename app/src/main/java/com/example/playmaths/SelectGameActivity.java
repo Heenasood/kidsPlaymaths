@@ -7,18 +7,32 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SelectGameActivity extends AppCompatActivity {
 
+    LinearLayout layout;
     private static final int REQUEST_CODE_QUIZ = 1;
+    public static final String EXTRA_CATEGORY_ID = "extraCategoryID";
+    public static final String EXTRA_CATEGORY_NAME = "extraCategoryName";
+
+    public static final String EXTRA_DIFFICULTY = "extraDifficulty";
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String KEY_HIGHSCORE = "keyHighscore";
 
     public int highscore;
 
     private TextView textViewHighscore;
+    private Spinner spinnerCategory;
+    private Spinner spinnerDifficulty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,131 +41,35 @@ public class SelectGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_game);
 
         textViewHighscore = findViewById(R.id.text_view_highscore);
+        spinnerCategory = findViewById(R.id.spinner_category);
+        spinnerDifficulty = findViewById(R.id.spinner_difficulty);
+
+
+        loadCategories();
+        loadDifficultyLevels();
+
         loadHighscore();
 
 
-        final ImageButton addition = (ImageButton) findViewById(R.id.imageButtonAddition);
-        final ImageButton subtraction = (ImageButton) findViewById(R.id.imageButtonSubtraction);
-        final ImageButton multipy = (ImageButton) findViewById(R.id.imageButtonMulti);
-        final ImageButton mix = (ImageButton) findViewById(R.id.imageButtonMixNew);
-
-
-        addition.setOnTouchListener(new View.OnTouchListener() {
+        Button buttonStartQuiz = findViewById(R.id.button_start_quiz);
+        buttonStartQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-
-                        //     play.setImageDrawable(getResources().getDrawable(R.drawable.play_click2));
-
-                        break;
-                    }
-                    case MotionEvent.ACTION_UP:{
-
-//                        play.setImageDrawable(getResources().getDrawable(R.drawable.play_clicked));
-                        Intent intent = new Intent(SelectGameActivity.this, GamePlayScreenActivity.class);
-                        intent.putExtra("gameSelected","+");
-                        intent.putExtra("start",0);
-                        intent.putExtra("end",10);
-                        startActivity(intent);
-                        break;
-                    }
-
-                }
-
-                return true;
-            }
-        });
-
-        subtraction.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-
-                        //  play.setImageDrawable(getResources().getDrawable(R.drawable.play_click2));
-
-                        break;
-                    }
-                    case MotionEvent.ACTION_UP:{
-
-//                        play.setImageDrawable(getResources().getDrawable(R.drawable.play_clicked));
-                        ImageButton buttonStartQuiz = findViewById(R.id.imageButtonAddition);
-                        buttonStartQuiz.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                startQuiz();
-                            }
-                        });
-                        break;
-                    }
-
-                }
-
-                return true;
-            }
-        });
-
-        multipy.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-
-                        // play.setImageDrawable(getResources().getDrawable(R.drawable.play_click2));
-
-                        break;
-                    }
-                    case MotionEvent.ACTION_UP:{
-
-//                        play.setImageDrawable(getResources().getDrawable(R.drawable.play_clicked));
-                        Intent intent = new Intent(SelectGameActivity.this, GamePlayScreenActivity.class);
-                        intent.putExtra("gameSelected","*");
-                        intent.putExtra("start",0);
-                        intent.putExtra("end",10);
-                        startActivity(intent);
-                    }
-
-                }
-
-                return true;
-            }
-        });
-
-        mix.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-
-                        //   play.setImageDrawable(getResources().getDrawable(R.drawable.play_click2));
-
-                        break;
-                    }
-                    case MotionEvent.ACTION_UP:{
-
-//                        play.setImageDrawable(getResources().getDrawable(R.drawable.play_clicked));
-                        Intent intent = new Intent(SelectGameActivity.this, GamePlayScreenActivity.class);
-                        intent.putExtra("gameSelected","mix");
-                        intent.putExtra("start",0);
-                        intent.putExtra("end",10);
-                        startActivity(intent);
-                        break;
-                    }
-
-                }
-
-                return true;
+            public void onClick(View v) {
+                startQuiz();
             }
         });
     }
 
     private void startQuiz() {
-        Intent intent = new Intent(SelectGameActivity.this, SelectGameActivity.class);
+        Category selectedCategory = (Category) spinnerCategory.getSelectedItem();
+        int categoryID = selectedCategory.getId();
+        String categoryName = selectedCategory.getName();
+        String difficulty = spinnerDifficulty.getSelectedItem().toString();
+
+        Intent intent = new Intent(SelectGameActivity.this, GamePlayScreenActivity.class);
+        intent.putExtra(EXTRA_CATEGORY_ID, categoryID);
+        intent.putExtra(EXTRA_CATEGORY_NAME, categoryName);
+        intent.putExtra(EXTRA_DIFFICULTY, difficulty);
         startActivityForResult(intent, REQUEST_CODE_QUIZ);
     }
 
@@ -168,6 +86,27 @@ public class SelectGameActivity extends AppCompatActivity {
             }
         }
     }
+
+
+    private void loadCategories() {
+        QuizDBHelper dbHelper = QuizDBHelper.getInstance(this);
+        List<Category> categories = dbHelper.getAllCategories();
+
+        ArrayAdapter<Category> adapterCategories = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, categories);
+        adapterCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategory.setAdapter(adapterCategories);
+    }
+
+    private void loadDifficultyLevels(){
+        String[] difficultyLevels = Questions.getAllDifficultyLevels();
+
+        ArrayAdapter<String> adapterDifficulty = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, difficultyLevels);
+        adapterDifficulty.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerDifficulty.setAdapter(adapterDifficulty);
+    }
+
 
 
     private void loadHighscore() {

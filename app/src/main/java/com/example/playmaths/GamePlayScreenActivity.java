@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class GamePlayScreenActivity extends AppCompatActivity {
     private static final String KEY_MILLIS_LEFT = "keyMillisLeft";
     private static final String KEY_ANSWERED = "keyAnswered";
     private static final String KEY_QUESTION_LIST = "keyQuestionList";
+
 
     private TextView textViewQuestion;
     private TextView textViewScore;
@@ -78,6 +80,8 @@ public class GamePlayScreenActivity extends AppCompatActivity {
         textViewQuestion = findViewById(R.id.text_view_question);
         textViewScore = findViewById(R.id.text_view_score);
         textViewQuestionCount = findViewById(R.id.text_view_question_count);
+        textViewCategory = findViewById(R.id.text_view_category);
+        textViewDifficulty = findViewById(R.id.text_view_difficulty);
         textViewCountDown = findViewById(R.id.text_view_countdown);
         rbGroup = findViewById(R.id.radio_group);
         rb1 = findViewById(R.id.radio_button1);
@@ -88,12 +92,20 @@ public class GamePlayScreenActivity extends AppCompatActivity {
         textColorDefaultRb = rb1.getTextColors();
         textColorDefaultCd = textViewCountDown.getTextColors();
 
+
+        Intent intent = getIntent();
+        int categoryID = intent.getIntExtra(SelectGameActivity.EXTRA_CATEGORY_ID, 0);
+        String categoryName = intent.getStringExtra(SelectGameActivity.EXTRA_CATEGORY_NAME);
+        String difficulty = intent.getStringExtra(SelectGameActivity.EXTRA_DIFFICULTY);
+
+        textViewCategory.setText("Category: " + categoryName);
+        textViewDifficulty.setText("Difficulty: " + difficulty);
+
         if (savedInstanceState == null) {
             QuizDBHelper dbHelper = new QuizDBHelper(this);
-            questionList = dbHelper.getAllQuestions();
+            questionList = dbHelper.getQuestions(categoryID, difficulty);
             questionCountTotal = questionList.size();
             Collections.shuffle(questionList);
-
             showNextQuestion();
         } else {
             questionList = savedInstanceState.getParcelableArrayList(KEY_QUESTION_LIST);

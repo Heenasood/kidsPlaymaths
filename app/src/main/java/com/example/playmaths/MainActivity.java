@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void startQuiz() {
         Intent intent = new Intent(MainActivity.this, SelectGameActivity.class);
-        startActivityForResult(intent, REQUEST_CODE_QUIZ);
+        startActivity(intent);
     }
 
     @Override
