@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SelectGameActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back"
+        />
+
+    <TextView
+        android:id="@+id/text_view_apptitle"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_above="@id/imageButtonAddition"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="8dp"
+        android:fontFamily="cursive"
+        android:includeFontPadding="true"
+        android:text="Play-Maths"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_purple"
+        android:textSize="55sp"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toTopOf="@+id/imageButtonAddition"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/text_view_highscore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Highscore: 0"
+        android:layout_below="@id/text_view_apptitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="8dp"
+        android:textSize="25sp"
+        android:textColor="@android:color/holo_green_dark"
+        android:layout_marginBottom="50dp" />
+
+    <ImageButton
+        android:id="@+id/imageButtonAddition"
+        android:layout_width="135dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="16dp"
+        android:scaleType="fitXY"
+        android:background="@null"
+        app:layout_constraintLeft_toLeftOf="@+id/imageView"
+        app:srcCompat="@drawable/add4"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        android:layout_marginTop="180dp" />
+
+    <ImageButton
+        android:id="@+id/imageButtonSubtraction"
+        android:layout_width="135dp"
+        android:layout_height="100dp"
+        android:layout_marginRight="16dp"
+        android:background="@null"
+        android:scaleType="fitXY"
+        app:layout_constraintRight_toRightOf="@+id/imageView"
+        app:srcCompat="@drawable/subtract1"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        android:layout_marginTop="180dp" />
+
+    <ImageButton
+        android:id="@+id/imageButtonMulti"
+        android:layout_width="135dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="16dp"
+        android:background="@null"
+        android:layout_marginTop="30dp"
+        android:scaleType="fitXY"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonAddition"
+        app:srcCompat="@drawable/multiply3" />
+
+
+
+    <ImageButton
+        android:id="@+id/imageButtonMixNew"
+        android:layout_width="135dp"
+        android:layout_height="100dp"
+        android:background="@null"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="30dp"
+        android:scaleType="fitXY"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonSubtraction"
+        app:srcCompat="@drawable/play_clicked" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
