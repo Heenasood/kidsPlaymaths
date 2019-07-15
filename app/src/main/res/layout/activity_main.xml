@@ -92,6 +92,20 @@
         android:onClick="onClick"
         android:textColor="#FFFFFF" />
 
+    <ImageButton
+        android:id="@+id/practicerandom"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="35dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginRight="350dp"
+        android:background="@drawable/ic_practice_24dp"
+        android:onClick="onClick"
+        android:textColor="#FFFFFF" />
+
 
 
 </RelativeLayout>

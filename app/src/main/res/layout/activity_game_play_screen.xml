@@ -11,8 +11,14 @@
         android:id="@+id/text_view_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="6dp"
+        android:layout_marginLeft="6dp"
         android:text="Score: 0"
-        android:textColor="@android:color/black"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="20dp"
         android:freezesText="true"/>
 
     <TextView
@@ -21,25 +27,37 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/text_view_score"
         android:text="Question: 1/x"
-        android:textColor="@android:color/black"
+        android:paddingLeft="6dp"
+        android:layout_marginLeft="6dp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="20dp"
         android:freezesText="true"/>
 
     <TextView
         android:id="@+id/text_view_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="6dp"
+        android:layout_marginLeft="6dp"
         android:layout_below="@id/text_view_question_count"
         android:text="Category: "
-        android:textColor="@android:color/black"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="20dp"
         android:freezesText="true"/>
 
     <TextView
         android:id="@+id/text_view_difficulty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="6dp"
+        android:layout_marginLeft="6dp"
         android:layout_below="@id/text_view_category"
         android:text="Difficulty: "
-        android:textColor="@android:color/black"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="20dp"
         android:freezesText="true"/>
 
     <TextView
@@ -58,41 +76,67 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/radio_group"
+        android:textStyle="bold"
+        android:fontFamily="cursive"
+        android:textColor="@android:color/holo_purple"
         android:layout_marginBottom="16dp"
-        android:text="Here will be the question text\nHere will be the question text\nHere will be the question text"
+        android:text="Here will be the question text\nHere will be the question text"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
+        android:textSize="40sp"
         android:freezesText="true"/>
+
+
 
     <RadioGroup
         android:id="@+id/radio_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_centerVertical="true">
 
         <RadioButton
             android:id="@+id/radio_button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="110dp"
+            android:layout_height="100dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:fontFamily="cursive"
             android:text="Option 1"
+            android:background="@drawable/custom_radiobutton"
+            android:textColor="#FFFFFF"
+            android:textAlignment="center"
+            android:padding="15dp"
+            android:layout_margin="15dp"
             android:freezesText="true"/>
 
         <RadioButton
             android:id="@+id/radio_button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="110dp"
+            android:layout_height="100dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:fontFamily="cursive"
             android:text="Option 2"
+            android:textAlignment="center"
+            android:padding="15dp"
+            android:layout_margin="15dp"
+            android:background="@drawable/custom_radiobutton"
+            android:textColor="#FFFFFF"
             android:freezesText="true"/>
 
         <RadioButton
             android:id="@+id/radio_button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="110dp"
+            android:layout_height="100dp"
             android:textSize="20sp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textColorHighlight="@color/colorAccent"
+            android:textStyle="bold"
+            android:fontFamily="cursive"
+            android:background="@drawable/custom_radiobutton"
+            android:textColor="#FFFFFF"
             android:text="Option 3"
+            android:textAlignment="center"
+            android:padding="15dp"
+            android:layout_margin="15dp"
             android:freezesText="true"/>
 
     </RadioGroup>
@@ -100,15 +144,17 @@
     <Button
         android:id="@+id/button_confirm_next"
         android:layout_width="320dp"
-        android:layout_height="70dp"
+        android:layout_height="66dp"
         android:layout_below="@id/radio_group"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:textSize="25sp"
-        android:textColor="#FFFFFF"
+        android:layout_marginTop="130dp"
+        android:layout_marginBottom="102dp"
         android:background="@drawable/custom_button"
+        android:freezesText="true"
         android:text="Confirm"
-        android:freezesText="true"/>
+        android:textColor="#FFFFFF"
+        android:textSize="25sp" />
 
 
 </RelativeLayout>

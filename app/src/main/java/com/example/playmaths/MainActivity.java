@@ -6,6 +6,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
@@ -50,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
+        final ImageButton play = (ImageButton)findViewById(R.id.practicerandom);
+
+
         playbutton = (Button) findViewById(R.id.playbutton);
         settingButton = (ImageButton)findViewById(R.id.settingButton);
         textViewHighscore = findViewById(R.id.text_view_highscore);
@@ -59,7 +66,30 @@ public class MainActivity extends AppCompatActivity {
         buttonStartQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startQuiz();
+              startQuiz();
+
+            }
+        });
+
+        play.setOnTouchListener(new View.OnTouchListener(){
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        play.setImageDrawable(getResources().getDrawable(R.drawable.play_click2));
+                        break;
+                    }
+
+                    case MotionEvent.ACTION_UP: {
+                        play.setImageDrawable(getResources().getDrawable(R.drawable.play_clicked));
+                        Intent intentPractice = new Intent(MainActivity.this, SelectPracticeTypeActivity.class);
+                        startActivity(intentPractice);
+                        break;
+                    }
+
+                }
+                return true;
             }
         });
 
@@ -83,9 +113,18 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;*/
 
+                            case R.id.imageGallery:
+
+                                Toast.makeText(MainActivity.this, "Entering to Gallery", Toast.LENGTH_SHORT).show();
+
+                                Intent intentGallery = new Intent(MainActivity.this, ImageGalleryActivity.class);
+                                startActivity(intentGallery);
+
+
+                                return true;
 
                             case R.id.emailus:
-                                Toast.makeText(MainActivity.this, "You clicked Email Us", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Clicked to Email Us", Toast.LENGTH_SHORT).show();
 
                                 Intent intentEmailus = new Intent(MainActivity.this, EmailusActivity.class);
                                 startActivity(intentEmailus);
@@ -93,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                                 return true;
 
                             case R.id.contactus:
-                                Toast.makeText(MainActivity.this, "You clicked Contact Us", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Clicked on Contact Us", Toast.LENGTH_SHORT).show();
 
                                 Intent intentContactUS = new Intent(MainActivity.this, ContactusActivity.class);
                                 startActivity(intentContactUS);
@@ -103,12 +142,12 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.locateus:
                                 Toast.makeText(MainActivity.this, "You clicked Locate Us", Toast.LENGTH_SHORT).show();
 
-                                Intent intentLocateus = new Intent(MainActivity.this, ContactusActivity.class);
+                                Intent intentLocateus = new Intent(MainActivity.this, MapsActivity.class);
                                 startActivity(intentLocateus);
                                 return true;
 
                             case R.id.rateme:
-                                Toast.makeText(MainActivity.this, "You are about to redirect to App Store", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "You are redirecting to App Store", Toast.LENGTH_SHORT).show();
 
                                 Intent intentRateUs = new Intent(MainActivity.this, RatemeActivity.class);
                                 startActivity(intentRateUs);
@@ -182,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startQuiz() {
+
         Intent intent = new Intent(MainActivity.this, SelectGameActivity.class);
         startActivity(intent);
     }
@@ -233,6 +273,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 }
 
 

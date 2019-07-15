@@ -18,17 +18,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/applogo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" android:theme="@style/generalNoTitle"/>
-        <activity android:name=".SplashScreenActivity" android:theme="@style/generalNoTitle">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".GamePlayScreenActivity" android:theme="@style/generalNoTitle"/>
-        <activity android:name=".SelectGameActivity" android:theme="@style/generalNoTitle" />
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".SelectPracticeTypeActivity"></activity>
+        <activity android:name=".PracticeActivity" />
+        <activity
+            android:name=".ImageGalleryActivity"
+            android:theme="@style/generalNoTitle" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -37,10 +32,49 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
 
-        <activity android:name=".RatemeActivity" android:theme="@style/generalNoTitle"/>
-        <activity android:name=".EmailusActivity" android:theme="@style/generalNoTitle" />
-        <activity android:name=".ContactusActivity" android:theme="@style/generalNoTitle"/>
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps" />
+        <activity android:name=".AddDataActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/generalNoTitle" />
+        <activity
+            android:name=".SplashScreenActivity"
+            android:theme="@style/generalNoTitle">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".GamePlayScreenActivity"
+            android:theme="@style/generalNoTitle" />
+        <activity
+            android:name=".SelectGameActivity"
+            android:theme="@style/generalNoTitle" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <activity
+            android:name=".RatemeActivity"
+            android:theme="@style/generalNoTitle" />
+        <activity
+            android:name=".EmailusActivity"
+            android:theme="@style/generalNoTitle" />
+        <activity
+            android:name=".ContactusActivity"
+            android:theme="@style/generalNoTitle" />
     </application>
 
 </manifest>

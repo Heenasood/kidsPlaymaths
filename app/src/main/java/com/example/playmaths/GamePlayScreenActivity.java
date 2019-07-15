@@ -1,15 +1,25 @@
 package com.example.playmaths;
 
+import androidx.annotation.RawRes;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.CountDownTimer;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.TextToSpeechService;
+import android.speech.tts.Voice;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -18,15 +28,17 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
+
 import com.example.playmaths.SplashScreenActivity;
 
 public class GamePlayScreenActivity extends AppCompatActivity {
 
+    private TextToSpeech mTTS;
     MediaPlayer mediaPlayer1, mediaPlayer2, mediaPlayer3;
-
-
-
+    ;
     public static final String EXTRA_SCORE = "extraScore";
     private static final long COUNTDOWN_IN_MILLIS = 30000;
 
@@ -100,6 +112,29 @@ public class GamePlayScreenActivity extends AppCompatActivity {
 
         textViewCategory.setText("Category: " + categoryName);
         textViewDifficulty.setText("Difficulty: " + difficulty);
+
+
+        mTTS = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS) {
+                    int result = mTTS.setLanguage(Locale.ENGLISH);
+
+
+                    if (result == TextToSpeech.LANG_MISSING_DATA
+                            || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("TTS", "Language not supported");
+                    } else {
+                        //mButtonSpeak.setEnabled(true);
+
+                    }
+                } else {
+                    Log.e("TTS", "Initialization failed");
+                }
+            }
+        });
+
 
         if (savedInstanceState == null) {
             QuizDBHelper dbHelper = new QuizDBHelper(this);
@@ -211,10 +246,9 @@ public class GamePlayScreenActivity extends AppCompatActivity {
             textViewScore.setText("Score: " + score);
             mediaPlayer2.start();
 
-        }
-        else
-        {
-            mediaPlayer1.start();
+
+        } else {
+            speak();
         }
 
         showSolution();
@@ -229,6 +263,7 @@ public class GamePlayScreenActivity extends AppCompatActivity {
             case 1:
                 rb1.setTextColor(Color.GREEN);
                 textViewQuestion.setText("Option 1 is correct");
+
                 break;
             case 2:
                 rb2.setTextColor(Color.GREEN);
@@ -263,6 +298,7 @@ public class GamePlayScreenActivity extends AppCompatActivity {
         Intent resultIntent = new Intent();
         resultIntent.putExtra(EXTRA_SCORE, score);
         setResult(RESULT_OK, resultIntent);
+
         finish();
     }
 
@@ -283,6 +319,12 @@ public class GamePlayScreenActivity extends AppCompatActivity {
         if (countDownTimer != null) {
             countDownTimer.cancel();
         }
+        if (mTTS != null) {
+            mTTS.stop();
+            mTTS.shutdown();
+        }
+
+        super.onDestroy();
     }
 
     @Override
@@ -294,4 +336,14 @@ public class GamePlayScreenActivity extends AppCompatActivity {
         outState.putBoolean(KEY_ANSWERED, answered);
         outState.putParcelableArrayList(KEY_QUESTION_LIST, questionList);
     }
+
+    private void speak() {
+
+        String text = "Nou Nou Nou Nou";
+        mTTS.setPitch(0.12f);
+        mTTS.setSpeechRate(1.25f);
+        mTTS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+
+    }
+
 }

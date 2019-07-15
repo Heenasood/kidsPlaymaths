@@ -32,33 +32,46 @@
         android:id="@+id/text_view_highscore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="52dp"
         android:layout_above="@id/button_start_quiz"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="32dp"
         android:text="Highscore: 0"
-        android:textSize="20sp" />
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:textSize="27sp"
+        android:background="@null" />
 
     <Button
         android:id="@+id/button_start_quiz"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
+        android:background="@drawable/custom_sound_button"
         android:layout_centerInParent="true"
-        android:text="Start Quiz" />
+        android:textColor="#FFFFFF"
+        android:textSize="45dp"
+        android:fontFamily="cursive"
+        android:text="Go" />
 
     <Spinner
         android:id="@+id/spinner_category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/button_start_quiz"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
         android:layout_below="@+id/button_start_quiz"
-        android:layout_marginTop="16dp" />
+        android:background="@drawable/custom_button"
+        android:popupBackground="@drawable/custom_button"
+        android:popupElevation="20dp"
+        android:textAlignment="center"
+        android:layout_marginTop="36dp" />
 
     <Spinner
         android:id="@+id/spinner_difficulty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/button_start_quiz"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/custom_button"
         android:layout_below="@+id/spinner_category"
-        android:layout_marginTop="16dp" />
+        android:popupBackground="@drawable/custom_button"
+        android:textAlignment="center"
+        android:layout_marginTop="26dp" />
 </LinearLayout>

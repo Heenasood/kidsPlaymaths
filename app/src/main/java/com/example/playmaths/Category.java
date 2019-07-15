@@ -1,7 +1,5 @@
 package com.example.playmaths;
 
-import androidx.annotation.NonNull;
-
 public class Category {
 
     public static final int ADDITION = 1;
